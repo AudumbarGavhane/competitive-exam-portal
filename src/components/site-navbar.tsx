@@ -65,14 +65,14 @@ export function SiteNavbar() {
             : 'border-transparent bg-transparent',
         )}
       >
-        <a href="#top" className="flex items-center gap-2">
+        <Link href="/#top" className="flex items-center gap-2">
           <span className="flex size-8 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <GraduationCap className="size-4" />
           </span>
           <span className="font-serif text-lg font-medium tracking-tight">
             Exam Point
           </span>
-        </a>
+        </Link>
 
         <div className="hidden items-center gap-1 md:flex">
           {links.map((l) => (
