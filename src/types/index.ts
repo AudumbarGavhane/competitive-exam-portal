@@ -6,6 +6,7 @@ export interface TestSeries {
   slug: string;
   description: string;
   tier: 'FREE' | 'PAID';
+  examKey: string; // links to Exam.key in src/lib/exams.ts, e.g. 'upsc', 'ssc'
   metaTitle?: string;
   metaDescription?: string;
 }
@@ -20,6 +21,9 @@ export interface Question {
   marks: number;
   negativeMarks: number;
 }
+
+// What the client sees while an attempt is ONGOING — never leak the answer key.
+export type QuestionForAttempt = Omit<Question, 'correctOption' | 'explanation'>;
 
 export interface TestAttempt {
   id: string;

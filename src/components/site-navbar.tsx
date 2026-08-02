@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import Link from 'next/link'
 import { GraduationCap, Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { ThemeToggle } from '@/components/theme-toggle'
@@ -9,9 +10,34 @@ import { ThemeToggle } from '@/components/theme-toggle'
 const links = [
   { label: 'How it works', href: '#how' },
   { label: 'Study', href: '#focus' },
-  { label: 'Practice', href: '#how' },
+  { label: 'Test series', href: '/test-series' },
   { label: 'Dashboard', href: '#stats' },
 ]
+
+function NavLink({
+  href,
+  className,
+  onClick,
+  children,
+}: {
+  href: string
+  className: string
+  onClick?: () => void
+  children: React.ReactNode
+}) {
+  if (href.startsWith('/')) {
+    return (
+      <Link href={href} className={className} onClick={onClick}>
+        {children}
+      </Link>
+    )
+  }
+  return (
+    <a href={href} className={className} onClick={onClick}>
+      {children}
+    </a>
+  )
+}
 
 export function SiteNavbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -50,13 +76,13 @@ export function SiteNavbar() {
 
         <div className="hidden items-center gap-1 md:flex">
           {links.map((l) => (
-            <a
+            <NavLink
               key={l.label}
               href={l.href}
               className="rounded-full px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               {l.label}
-            </a>
+            </NavLink>
           ))}
         </div>
 
@@ -87,14 +113,14 @@ export function SiteNavbar() {
           className="mx-auto mt-2 max-w-6xl rounded-2xl border border-border/70 bg-background/90 p-2 backdrop-blur-xl md:hidden"
         >
           {links.map((l) => (
-            <a
+            <NavLink
               key={l.label}
               href={l.href}
               onClick={() => setOpen(false)}
               className="block rounded-xl px-4 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
             >
               {l.label}
-            </a>
+            </NavLink>
           ))}
           <a
             href="#start"

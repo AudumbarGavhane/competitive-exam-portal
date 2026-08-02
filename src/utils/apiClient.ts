@@ -1,6 +1,8 @@
 // src/utils/apiClient.ts
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080/api';
+// Defaults to this app's own /api routes (src/app/api/**). Point
+// NEXT_PUBLIC_API_URL at a real backend later without touching call sites.
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || '/api';
 
 interface RequestOptions extends RequestInit {
   params?: Record<string, string | number | boolean>;

@@ -2,6 +2,8 @@
 
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
 import { exams } from '@/lib/exams'
 import { cn } from '@/lib/utils'
 import { Reveal } from '@/components/reveal'
@@ -78,6 +80,14 @@ export function ExamPicker() {
                   </span>
                 ))}
               </div>
+
+              <Link
+                href={`/test-series?exam=${active.key}`}
+                className="group mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-brand"
+              >
+                View {active.label} test series
+                <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" />
+              </Link>
             </motion.div>
           </AnimatePresence>
         </div>
