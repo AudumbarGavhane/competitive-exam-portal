@@ -3,9 +3,11 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import Link from 'next/link'
-import { GraduationCap, Menu, X } from 'lucide-react'
+import { ChevronDown, GraduationCap, Menu, X } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { ThemeToggle } from '@/components/theme-toggle'
+import { CoursesDropdown } from '@/components/courses-dropdown'
+import { courses } from '@/lib/courses'
 
 const links = [
   { label: 'How it works', href: '#how' },
@@ -42,6 +44,7 @@ function NavLink({
 export function SiteNavbar() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [mobileCoursesOpen, setMobileCoursesOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12)
@@ -75,6 +78,7 @@ export function SiteNavbar() {
         </Link>
 
         <div className="hidden items-center gap-1 md:flex">
+          <CoursesDropdown />
           {links.map((l) => (
             <NavLink
               key={l.label}
@@ -112,6 +116,31 @@ export function SiteNavbar() {
           animate={{ opacity: 1, y: 0 }}
           className="mx-auto mt-2 max-w-6xl rounded-2xl border border-border/70 bg-background/90 p-2 backdrop-blur-xl md:hidden"
         >
+          <button
+            type="button"
+            aria-expanded={mobileCoursesOpen}
+            onClick={() => setMobileCoursesOpen((v) => !v)}
+            className="flex w-full items-center justify-between rounded-xl px-4 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+          >
+            Courses
+            <ChevronDown
+              className={cn('size-3.5 transition-transform', mobileCoursesOpen && 'rotate-180')}
+            />
+          </button>
+          {mobileCoursesOpen && (
+            <div className="grid grid-cols-2 gap-1.5 px-2 pb-2">
+              {courses.map((course) => (
+                <Link
+                  key={course.slug}
+                  href={`/courses/${course.slug}`}
+                  onClick={() => setOpen(false)}
+                  className="rounded-xl border border-border bg-card px-3 py-2 text-sm text-foreground transition-colors hover:border-brand/40"
+                >
+                  {course.title}
+                </Link>
+              ))}
+            </div>
+          )}
           {links.map((l) => (
             <NavLink
               key={l.label}
