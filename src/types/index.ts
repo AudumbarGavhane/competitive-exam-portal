@@ -7,8 +7,22 @@ export interface TestSeries {
   description: string;
   tier: 'FREE' | 'PAID';
   examKey: string; // links to Exam.key in src/lib/exams.ts, e.g. 'upsc', 'ssc'
+  // MOCK: full-length series shown in the paid/premium /test-series catalog.
+  // NOTES_QUIZ: short recap quiz attached to a Note, reached only via /notes/[slug].
+  kind: 'MOCK' | 'NOTES_QUIZ';
   metaTitle?: string;
   metaDescription?: string;
+}
+
+export interface Note {
+  id: string;
+  slug: string;
+  examKey: string; // links to Exam.key in src/lib/exams.ts
+  subject: string; // matches one of Exam.subjects
+  title: string;
+  summary: string;
+  content: string[]; // paragraphs
+  quizSlug: string; // slug of the companion NOTES_QUIZ TestSeries
 }
 
 export interface Question {

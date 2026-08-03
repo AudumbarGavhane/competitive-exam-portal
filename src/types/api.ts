@@ -2,11 +2,15 @@
 // Request/response DTOs for the internal API routes (src/app/api/**).
 // Kept separate from src/types/index.ts, which mirrors the underlying data model.
 
-import type { Question, QuestionForAttempt, TestAttempt, TestSeries } from '@/types/index';
+import type { Note, Question, QuestionForAttempt, TestAttempt, TestSeries } from '@/types/index';
 
 export interface TestSeriesSummary extends TestSeries {
   questionCount: number;
   maxMarks: number;
+}
+
+export interface NoteDetail extends Note {
+  quizQuestionCount: number;
 }
 
 export interface CreateAttemptResponse {

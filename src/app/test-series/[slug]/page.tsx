@@ -5,7 +5,7 @@ import { SiteNavbar } from '@/components/site-navbar'
 import { SiteFooter } from '@/components/site-footer'
 import { Reveal } from '@/components/reveal'
 import { getTestSeriesBySlug } from '@/lib/services/testSeriesService'
-import { StartTestButton } from './StartTestButton'
+import { StartTestButton } from '@/components/StartTestButton'
 
 export default async function TestSeriesDetailPage({
   params,

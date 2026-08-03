@@ -1,8 +1,9 @@
 'use client'
 
 import Image from 'next/image'
+import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { Check } from 'lucide-react'
+import { ArrowRight, Check } from 'lucide-react'
 import { Reveal } from '@/components/reveal'
 
 const checklist = [
@@ -42,6 +43,16 @@ export function ReadingRoom() {
               </Reveal>
             ))}
           </ul>
+
+          <Reveal delay={0.1 + checklist.length * 0.08}>
+            <Link
+              href="/explore"
+              className="group mt-8 inline-flex h-11 items-center gap-2 rounded-full bg-primary px-6 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/85"
+            >
+              Explore curriculums
+              <ArrowRight className="size-4 transition-transform group-hover:translate-x-0.5" />
+            </Link>
+          </Reveal>
         </div>
 
         <Reveal delay={0.15}>
