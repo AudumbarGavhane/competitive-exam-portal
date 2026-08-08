@@ -7,7 +7,13 @@ import { Button } from '@/components/ui/button'
 import { apiClient } from '@/utils/apiClient'
 import type { CreateAttemptResponse } from '@/types/api'
 
-export function StartTestButton({ slug }: { slug: string }) {
+export function StartTestButton({
+  slug,
+  label = 'Start test',
+}: {
+  slug: string
+  label?: string
+}) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -36,7 +42,7 @@ export function StartTestButton({ slug }: { slug: string }) {
           </>
         ) : (
           <>
-            Start test
+            {label}
             <ArrowRight className="size-4" />
           </>
         )}

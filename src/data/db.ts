@@ -5,9 +5,10 @@
 // plain arrays + array methods, no ORM. State lives in the Node process and
 // resets on every server restart / hot reload, which is expected here.
 
-import type { Question, TestAttempt, TestSeries, UserAnswer } from '@/types/index';
+import type { Note, Question, TestAttempt, TestSeries, UserAnswer } from '@/types/index';
+import { notesData, notesQuizQuestions, notesQuizSeries } from '@/data/notes';
 
-export const testSeries: TestSeries[] = [
+const mockTestSeries: TestSeries[] = [
   {
     id: 'ts-upsc-prelims-1',
     title: 'UPSC CSE Prelims Mock 1',
@@ -16,6 +17,7 @@ export const testSeries: TestSeries[] = [
       'A full-length General Studies mock covering polity, history, economy and geography, marked to the real prelims pattern.',
     tier: 'FREE',
     examKey: 'upsc',
+    kind: 'MOCK',
   },
   {
     id: 'ts-ssc-quant-1',
@@ -25,6 +27,7 @@ export const testSeries: TestSeries[] = [
       'A speed-focused quantitative aptitude set drilling the exact question types SSC CGL Tier 1 sets every year.',
     tier: 'PAID',
     examKey: 'ssc',
+    kind: 'MOCK',
   },
   {
     id: 'ts-banking-reasoning-1',
@@ -34,6 +37,7 @@ export const testSeries: TestSeries[] = [
       'IBPS/SBI-style reasoning questions covering puzzles, syllogisms and direction sense, built for accuracy under time pressure.',
     tier: 'FREE',
     examKey: 'banking',
+    kind: 'MOCK',
   },
   {
     id: 'ts-neet-physics-1',
@@ -43,10 +47,11 @@ export const testSeries: TestSeries[] = [
       'NCERT-aligned physics questions on mechanics and electrostatics, scored on the NEET marking scheme.',
     tier: 'PAID',
     examKey: 'neet',
+    kind: 'MOCK',
   },
 ];
 
-export const questions: Question[] = [
+const mockQuestions: Question[] = [
   // UPSC CSE Prelims Mock 1
   {
     id: 'q-upsc-1',
@@ -278,6 +283,17 @@ export const questions: Question[] = [
     negativeMarks: 1,
   },
 ];
+
+// Paid mock series live alongside the free recap quizzes attached to notes —
+// both flow through the same testSeries/questions tables and the same
+// attempt/test-room pipeline; only TestSeries.kind tells them apart.
+export const testSeries: TestSeries[] = [...mockTestSeries, ...notesQuizSeries];
+export const questions: Question[] = [...mockQuestions, ...notesQuizQuestions];
+export const notes: Note[] = notesData;
+
+export function findNoteBySlug(slug: string): Note | undefined {
+  return notes.find((n) => n.slug === slug);
+}
 
 // Mutable mock tables — grow at runtime as attempts are created/answered/submitted.
 //

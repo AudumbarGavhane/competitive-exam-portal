@@ -16,11 +16,13 @@ function toSummary(series: TestSeries): TestSeriesSummary {
 }
 
 export function listTestSeries(examKey?: string): TestSeriesSummary[] {
-  const filtered = examKey ? testSeries.filter((s) => s.examKey === examKey) : testSeries;
+  const filtered = testSeries.filter(
+    (s) => s.kind === 'MOCK' && (!examKey || s.examKey === examKey),
+  );
   return filtered.map(toSummary);
 }
 
 export function getTestSeriesBySlug(slug: string): TestSeriesSummary | undefined {
   const series = findSeriesBySlug(slug);
-  return series ? toSummary(series) : undefined;
+  return series && series.kind === 'MOCK' ? toSummary(series) : undefined;
 }
